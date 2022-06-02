@@ -7,10 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\ClientTypes;
 use App\Models\Seller;
 use App\Models\Phones;
+use Illuminate\Notifications\Notifiable;
 
 class Client extends Model
 {
-    use HasFactory;
+    use HasFactory, Notifiable;
 
     protected $fillable = ['name', 'email', 'image_path', 'type_id'];
 
