@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\JWTController;
+use App\Http\Controllers\ClientController;
+use App\Http\Controllers\SellerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,12 +17,19 @@ use App\Http\Controllers\JWTController;
 |
 */
 
-Route::group(['middleware' => 'api'], function($router){
+Route::group(['middleware' => 'api'], function(){
 
     Route::post('/register', [JWTController::class, 'register']);
     Route::post('/login', [JWTcontroller::class, 'login']);
     Route::post('/logout', [JWTController::class, 'logout']);
     Route::post('/refresh', [JWTController::class, 'refresh']);
-    // Route::post('/profile', [SellerController::class, 'profile']);
+
+    /*
+    * Resource routes
+    * index, create, show, update, destroy
+    */
+
+    Route::apiResource('seller', SellerController::class);
+    Route::apiResource('client', ClientController::class);
 
 });
