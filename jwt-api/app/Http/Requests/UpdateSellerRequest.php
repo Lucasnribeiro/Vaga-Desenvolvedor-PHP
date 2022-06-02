@@ -13,7 +13,7 @@ class UpdateSellerRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,21 @@ class UpdateSellerRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'string|max:100|unique:sellers,name'
+        ];
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'name.string' => 'The name field must be a string.',
+            'name.max' => 'Maximum string length for the name field is 100.',
+            'name.unique' => 'Seller name is in use.'
         ];
     }
 }
