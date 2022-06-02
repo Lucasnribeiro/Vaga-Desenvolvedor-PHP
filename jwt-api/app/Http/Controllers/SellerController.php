@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Seller;
 use App\Http\Requests\StoreSellerRequest;
 use App\Http\Requests\UpdateSellerRequest;
+use App\Http\Resources\SellerResource;
 
 class SellerController extends Controller
 {
@@ -15,17 +16,7 @@ class SellerController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return SellerResource::collection(Seller::all());
     }
 
     /**
@@ -36,7 +27,10 @@ class SellerController extends Controller
      */
     public function store(StoreSellerRequest $request)
     {
-        //
+
+        $seller = Seller::create($request->validated());
+
+        return response()->json(['message' => "Seller ID: $seller->id"], 201);
     }
 
     /**
@@ -47,19 +41,9 @@ class SellerController extends Controller
      */
     public function show(Seller $seller)
     {
-        //
+        return new SellerResource($seller);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Seller  $seller
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Seller $seller)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
@@ -70,7 +54,9 @@ class SellerController extends Controller
      */
     public function update(UpdateSellerRequest $request, Seller $seller)
     {
-        //
+        $seller->update($request->validated());
+
+        return response()->json(['message' => 'Seller was updated'], 200);
     }
 
     /**
@@ -81,6 +67,8 @@ class SellerController extends Controller
      */
     public function destroy(Seller $seller)
     {
-        //
+        $seller->delete();
+
+        return response()->json(['message' => 'Client was deleted'], 200);
     }
 }
