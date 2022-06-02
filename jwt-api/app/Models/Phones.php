@@ -5,14 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Seller extends Model
+class Phones extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name'];
+    protected $fillable = ['client_id', 'number'];
 
-    public function clients()
+    public function client()
     {
-        return $this->belongsToMany(Client::class)->withTimestamps();
+        return $this->belongsTo(Client::class);
     }
 }
